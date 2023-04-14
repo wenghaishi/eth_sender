@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ethers } from 'ethers';
 import "./App.css";
+import Form from "./components/Form";
 
 function App() {
-  const [ethAddr, setEthAddr] = useState();
+  const [isConnected, setIsConnected] = useState(false);
 
-  const handleEthAddrChange = (e) => {
-    setEthAddr(e.target.value);
+  const connectWallet = () => {
+    window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
+      setIsConnected(true);
+      console.log(res);
+    });
   };
 
-  const submitHandler = () => {};
+  const checkConnection = async () => {
+    try {
+      // Check if MetaMask is connected
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const network = await provider.getNetwork();
+      setIsConnected(true);
+    } catch (error) {
+      console.log(error);
+      setIsConnected(false);
+    }
+  };
+
+  useEffect(() => {
+    checkConnection();
+  }, []);
+
+
   return (
     <div className="bg-[#E2FCA4] min-h-screen w-full flex flex-col items-center justify-evenly">
       <div className="flex flex-col items-center">
@@ -25,35 +46,17 @@ function App() {
           Eth Sender
         </h1>
       </div>
-      <form
-        className="flex flex-col items-center w-6/12 gap-6"
-        onSubmit={submitHandler}
-      >
-        <input
-          placeholder=" ETH Address"
-          type="text"
-          name="firstName"
-          required
-          className="w-full h-10 rounded-md px-2 fadeInAnimated"
-          id="third"
-          onChange={handleEthAddrChange}
-        />
-        <input
-          placeholder=" Amount to send"
-          type="text"
-          name="lastName"
-          required
-          className="w-full h-10 rounded-md mb-4 px-2 fadeInAnimated"
-          id="forth"
-        />
+      {isConnected ? (
+        <Form />
+      ) : (
         <button
-          type="submit"
           className="bg-dark-g text-xl btn text-white py-4 px-14 rounded-lg fadeInAnimated"
           id="fifth"
+          onClick={connectWallet}
         >
-          Connect Metamask
+          connect wallet
         </button>
-      </form>
+      )}
       <div></div>
     </div>
   );

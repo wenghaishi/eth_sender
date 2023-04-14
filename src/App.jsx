@@ -32,6 +32,7 @@ function App() {
 
   return (
     <div className="bg-[#E2FCA4] min-h-screen w-full flex flex-col items-center justify-evenly">
+      <div></div>
       <div className="flex flex-col items-center">
         <img
           src="switcheo.jpeg"

@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  transition: 0.25s;
+  font-family: 'DM Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;  
+}
+
+.btn:hover {
+  scale: 1.1;
+}
+
+.box {
+  transition: 0.8s ease;
+  padding: 5px;
+}
+
+.box:hover {
+  transform: translateX(-50%);
+  /* move element to the left by 100% of its width on hover */
+}
+
+@keyframes fadeIn {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+.fadeInAnimated {
+  opacity: 0;
+  animation: fadeIn 2s forwards; /* forwards (animation-fill-mode) retains the style from the last keyframe when the animation ends */
+}
+
+#first {
+  animation-delay: 0.1s;
+}
+
+#second {
+  animation-delay: 0.25s;
+}
+
+#third {
+  animation-delay: 0.4s;
+}
+
+#forth {
+  animation-delay: 0.55s;
+}
+
+#fifth {
+  animation-delay: 0.7s;
+}
+
+
+
+
+

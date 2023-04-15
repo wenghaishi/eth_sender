@@ -3,17 +3,25 @@ import { useState, useEffect } from "react";
 
 const Form = () => {
   const [ethAddr, setEthAddr] = useState();
+  const [sendAmount, setSendAmount] = useState();
 
   const handleEthAddrChange = (e) => {
     setEthAddr(e.target.value);
   };
 
+  const handleEthAmountChange = (e) => {
+    setSendAmount(e.target.value);
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     const ethAddrRegex = /^0x[a-fA-F0-9]{40}$/;
-    if (!ethAddrRegex.test(ethAddr))  {
-      alert("Please enter a valid email address.");
+    if (!ethAddrRegex.test(ethAddr)) {
+      alert("Please enter a valid Eth address");
       return;
+    }
+    if (sendAmount < 0) {
+      alert("Min amount must be more than 0")
     }
   };
 
@@ -23,7 +31,7 @@ const Form = () => {
       onSubmit={submitHandler}
     >
       <input
-        placeholder=" ETH Address"
+        placeholder="ETH Address"
         type="text"
         name="firstName"
         required
@@ -32,19 +40,20 @@ const Form = () => {
         onChange={handleEthAddrChange}
       />
       <input
-        placeholder=" Amount to send"
-        type="text"
+        placeholder="Amount to send"
+        type="number"
         name="lastName"
         required
         className="w-full h-10 rounded-md mb-4 px-2 fadeInAnimated"
         id="forth"
+        onChange={handleEthAmountChange}
       />
       <button
         type="submit"
         className="bg-dark-g text-xl btn text-white py-4 px-14 rounded-lg fadeInAnimated"
         id="fifth"
       >
-        Get OTP
+        Send Eth
       </button>
     </form>
   );
